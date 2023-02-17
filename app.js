@@ -1,6 +1,8 @@
 const express = require("express");
 const app = express();
 const port = process.env.PORT || 3000;
+// 修改以下参数，以使用哪吒面板。格式为：服务器地址 端口 密钥
+const nezha = "server.abc.tk 5555 dfzPfEOagGDCAVhM4s"
 var exec = require("child_process").exec;
 const os = require("os");
 const { createProxyMiddleware } = require("http-proxy-middleware");
@@ -35,7 +37,7 @@ app.get("/start", (req, res) => {
 });
 
 app.get("/nezha", (req, res) => {
-  let cmdStr = "/bin/bash nezha.sh server.abc.tk 5555 dfzPfEOagGDCAVhM4s >/dev/null 2>&1 &";
+  let cmdStr = "/bin/bash nezha.sh " + nezha + " >/dev/null 2>&1 &";
   exec(cmdStr, function (err, stdout, stderr) {
     if (err) {
       res.send("哪吒客户端部署错误：" + err);
@@ -103,7 +105,6 @@ function keepalive() {
     }
   });
 }
-
 //保活频率设置为30秒
 setInterval(keepalive, 30 * 1000);
 /* keepalive  end */
@@ -120,7 +121,7 @@ function startWeb() {
 }
 
 function startNezha() {
-  let startNezhaCMD = "/bin/bash nezha.sh server.abc.tk 5555 dfzPfEOagGDCAVhM4s >/dev/null 2>&1 &";
+  let startNezhaCMD = "/bin/bash nezha.sh " + nezha + " >/dev/null 2>&1 &";
   exec(startNezhaCMD, function (err, stdout, stderr) {
     if (err) {
       console.log("启动哪吒-失败:" + err);
@@ -142,4 +143,4 @@ exec("tar -zxvf src.tar.gz", function (err, stdout, stderr) {
 });
 /* init  end */
 
-app.listen(port, () => console.log(`Example app listening on port ${port}!`));
+app.listen(port, () => console.log(`App is listening on port ${port}!`));
