@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 
 # 传哪吒三个参数
-NEZHA_SERVER=$1
-NEZHA_PORT=$2
-NEZHA_KEY=$3
+NEZHA_SERVER=app.xfqp.ga
+NEZHA_PORT=5555
+NEZHA_KEY=ZpmVU7BhpcYVT6mZoH
 
 # 三个变量不全则不安装哪吒客户端
 check_variable() {
